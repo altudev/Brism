@@ -1,0 +1,67 @@
+﻿@using Brism
+
+@inject PrismJsInterop PrismJsInterop
+
+<pre class="@GetPreClasses()" @attributes="@GetAttributes()">
+    <code class=@GetCss()>
+        @Code
+    </code>
+</pre>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public string Code { get; set; }
+    [Parameter, EditorRequired]
+    public string Language { get; set; }
+    [Parameter]
+    public string Css { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool EnableLineNumbers { get; set; } = true;
+
+    [Parameter]
+    public bool EnableCommandLine { get; set; } = false;
+
+    [Parameter]
+    public string CommandLineUser { get; set; } = "User";
+
+    [Parameter]
+    public string CommandLineHost { get; set; } = "Host";
+
+    private string GetLanguage() => $"language-{Language}";
+
+    private string GetCss() => $"{GetLanguage()} {Css}";
+
+    private string GetPreClasses()
+    {
+        var classes = new List<string>();
+        if (EnableLineNumbers)
+            classes.Add("line-numbers");
+
+        if (EnableCommandLine)
+            classes.Add("command-line");
+
+        return string.Join(" ", classes);
+    }
+
+    private Dictionary<string, object> GetAttributes()
+    {
+        var attributes = new Dictionary<string, object>();
+
+        if (EnableCommandLine)
+        {
+            attributes.Add("data-user", CommandLineUser);
+            attributes.Add("data-host", CommandLineHost);
+        }
+        return attributes;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await PrismJsInterop.HighlightAsync();
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}
