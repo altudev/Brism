@@ -3,8 +3,8 @@
 [![NuGet](https://img.shields.io/nuget/v/Brism.svg)](https://www.nuget.org/packages/Brism)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Screenshot of component in action 1](./screenshots/Screenshot1.png)
-![Screenshot of component in action 2](./screenshots/Screenshot2.png)
+![Screenshot of component in action 1](./screenshots/screenshot1.png)
+![Screenshot of component in action 2](./screenshots/screenshot2.png)
 
 Brism brings the power of PrismJS to Blazor, making your code examples look fantastic with minimal effort. Perfect for documentation, blogs, or any application that needs beautiful code snippets.
 
@@ -201,8 +201,8 @@ When you just want the code without the extras:
 Mix and match different languages:
 
 ```razor
-<CodeBlock Code="@htmlCode" Language="CodeLanguage.Html" />
 <CodeBlock Code="@cssCode" Language="CodeLanguage.Css" />
+<CodeBlock Code="@htmlCode" Language="CodeLanguage.Html" />
 <CodeBlock Code="@jsCode" Language="CodeLanguage.JavaScript" />
 ```
 
