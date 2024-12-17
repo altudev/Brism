@@ -1,0 +1,91 @@
+@page "/markdown"
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>Markdown Examples - Brism Demo</PageTitle>
+
+<h1>Markdown Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic Markdown Syntax</h3>
+    <CodeBlock Code=@(@"
+# Project Title
+
+## Overview
+This is a sample project that demonstrates various features.
+
+### Features
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Installation
+1. Clone the repository
+2. Run `npm install`
+3. Start the server with `npm start`
+
+## Code Example
+```javascript
+const greeting = 'Hello, World!';
+console.log(greeting);
+```
+
+## Links and Images
+[Visit our website](https://example.com)
+![Logo](./images/logo.png)
+
+## Tables
+| Name | Description | Version |
+|------|-------------|---------|
+| App  | Main app    | 1.0.0   |
+| API  | Backend API | 2.1.0   |")
+    Language="CodeLanguage.Markdown"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Advanced Markdown Features</h3>
+    <CodeBlock Code=@(@"
+# Technical Documentation
+
+## Code Blocks with Syntax Highlighting
+
+### JavaScript
+```javascript
+function calculateTotal(items) {
+    return items.reduce((sum, item) => sum + item.price, 0);
+}
+```
+
+### Python
+```python
+def calculate_total(items):
+    return sum(item['price'] for item in items)
+```
+
+## Task Lists
+- [x] Write documentation
+- [x] Add code examples
+- [ ] Review changes
+- [ ] Publish
+
+## Blockquotes
+> This is a blockquote
+> It can span multiple lines
+>> And can be nested
+
+## Definition Lists
+Term 1
+: Definition 1
+
+Term 2
+: Definition 2
+
+## Footnotes
+Here's a sentence with a footnote[^1].
+
+[^1]: This is the footnote content.")
+    Language="CodeLanguage.Markdown"
+    EnableLineNumbers="true" />
+</div>

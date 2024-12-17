@@ -1,0 +1,139 @@
+@page "/json"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>JSON Examples - Brism Demo</PageTitle>
+
+<h1>JSON Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic JSON Structure</h3>
+    <CodeBlock Code=@(@"
+{
+    ""name"": ""John Doe"",
+    ""age"": 30,
+    ""isStudent"": false,
+    ""hobbies"": [""reading"", ""gaming"", ""coding""],
+    ""address"": {
+        ""street"": ""123 Main St"",
+        ""city"": ""New York"",
+        ""country"": ""USA"",
+        ""coordinates"": {
+            ""latitude"": 40.7128,
+            ""longitude"": -74.0060
+        }
+    },
+    ""contact"": null
+}")
+    Language="CodeLanguage.Json"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Complex JSON Example</h3>
+    <CodeBlock Code=@(@"
+{
+    ""company"": {
+        ""name"": ""Tech Corp"",
+        ""founded"": 2010,
+        ""employees"": [
+            {
+                ""id"": 1,
+                ""name"": ""Alice Smith"",
+                ""position"": ""Software Engineer"",
+                ""skills"": [""JavaScript"", ""Python"", ""SQL""],
+                ""projects"": [
+                    {
+                        ""name"": ""Project A"",
+                        ""status"": ""completed"",
+                        ""duration"": {
+                            ""start"": ""2023-01-01"",
+                            ""end"": ""2023-06-30""
+                        }
+                    },
+                    {
+                        ""name"": ""Project B"",
+                        ""status"": ""in-progress"",
+                        ""duration"": {
+                            ""start"": ""2023-07-01"",
+                            ""end"": null
+                        }
+                    }
+                ]
+            }
+        ],
+        ""offices"": {
+            ""headquarters"": {
+                ""location"": ""San Francisco"",
+                ""employees"": 500
+            },
+            ""branches"": [
+                {
+                    ""location"": ""London"",
+                    ""employees"": 200
+                },
+                {
+                    ""location"": ""Tokyo"",
+                    ""employees"": 150
+                }
+            ]
+        }
+    }
+}")
+    Language="CodeLanguage.Json"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Configuration File Example</h3>
+    <CodeBlock Code=@(@"
+{
+    ""app"": {
+        ""name"": ""MyApp"",
+        ""version"": ""1.0.0"",
+        ""environment"": ""production"",
+        ""debug"": false
+    },
+    ""database"": {
+        ""primary"": {
+            ""host"": ""localhost"",
+            ""port"": 5432,
+            ""name"": ""myapp_db"",
+            ""credentials"": {
+                ""user"": ""${DB_USER}"",
+                ""password"": ""${DB_PASSWORD}""
+            },
+            ""pool"": {
+                ""min"": 5,
+                ""max"": 20
+            }
+        },
+        ""replica"": {
+            ""enabled"": true,
+            ""hosts"": [
+                ""replica1.example.com"",
+                ""replica2.example.com""
+            ]
+        }
+    },
+    ""cache"": {
+        ""provider"": ""redis"",
+        ""ttl"": 3600,
+        ""clusters"": [
+            {
+                ""host"": ""cache1.example.com"",
+                ""port"": 6379
+            },
+            {
+                ""host"": ""cache2.example.com"",
+                ""port"": 6379
+            }
+        ]
+    }
+}")
+    Language="CodeLanguage.Json"
+    EnableLineNumbers="true" />
+</div>

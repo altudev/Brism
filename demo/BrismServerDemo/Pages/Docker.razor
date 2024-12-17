@@ -1,0 +1,87 @@
+@page "/docker"
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>Docker Examples - Brism Demo</PageTitle>
+
+<h1>Docker Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic Dockerfile</h3>
+    <CodeBlock Code=@(@"
+# Use official .NET SDK image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore dependencies
+COPY [""MyApp.csproj"", ""./""]
+RUN dotnet restore
+
+# Copy everything else and build
+COPY . .
+RUN dotnet publish -c Release -o /app
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT [""dotnet"", ""MyApp.dll""]")
+    Language="CodeLanguage.Docker"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Docker Compose Example</h3>
+    <CodeBlock Code=@(@"
+version: '3.8'
+
+services:
+  webapp:
+    build: .
+    ports:
+      - ""80:80""
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+    ports:
+      - ""1433:1433""
+    volumes:
+      - sqldata:/var/opt/mssql
+
+volumes:
+  sqldata:")
+    Language="CodeLanguage.Yaml"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Multi-stage Build Example</h3>
+    <CodeBlock Code=@(@"
+# Build stage
+FROM node:18 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Test stage
+FROM build AS test
+RUN npm run test
+
+# Production stage
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD [""nginx"", ""-g"", ""daemon off;""]")
+    Language="CodeLanguage.Docker"
+    EnableLineNumbers="true" />
+</div>

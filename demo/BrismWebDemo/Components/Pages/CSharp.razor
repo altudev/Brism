@@ -1,0 +1,195 @@
+@page "/csharp"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>C# Examples - Brism Demo</PageTitle>
+
+<h1>C# Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic C# Features</h3>
+    <CodeBlock Code=@(@"
+// Records
+public record Person(string FirstName, string LastName, int Age);
+
+// Pattern matching
+public static string GetDisplayName(Person person) => person switch
+{
+    { FirstName: ""John"", LastName: ""Doe"" } => ""JD"",
+    { FirstName: var first, LastName: var last } => $""{first[0]}{last[0]}"",
+    null => ""Unknown""
+};
+
+// LINQ and Collections
+public class DataProcessor
+{
+    public IEnumerable<int> ProcessNumbers(IEnumerable<int> numbers)
+    {
+        return numbers
+            .Where(n => n > 0)
+            .OrderBy(n => n)
+            .Select(n => n * 2);
+    }
+}")
+    Language="CodeLanguage.CSharp"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Blazor Components</h3>
+    <CodeBlock Code=@(@"
+@page ""/counter""
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role=""status"">Current count: @currentCount</p>
+
+<button class=""btn btn-primary"" @onclick=""IncrementCount"">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+
+    private async Task IncrementCount()
+    {
+        currentCount += IncrementAmount;
+        await Task.Delay(100); // Simulate async operation
+    }
+}")
+    Language="CodeLanguage.Razor"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Blazor Forms and Data Binding</h3>
+    <CodeBlock Code=@(@"
+@page ""/registration""
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+
+<EditForm Model=""@model"" OnValidSubmit=""@HandleValidSubmit"">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class=""form-group"">
+        <label for=""username"">Username:</label>
+        <InputText id=""username"" @bind-Value=""model.Username"" class=""form-control"" />
+        <ValidationMessage For=""@(() => model.Username)"" />
+    </div>
+
+    <div class=""form-group"">
+        <label for=""email"">Email:</label>
+        <InputText id=""email"" @bind-Value=""model.Email"" class=""form-control"" />
+        <ValidationMessage For=""@(() => model.Email)"" />
+    </div>
+
+    <button type=""submit"" class=""btn btn-primary"">Register</button>
+</EditForm>
+
+@code {
+    private RegistrationModel model = new();
+
+    private async Task HandleValidSubmit()
+    {
+        // Process the valid form
+        await Task.Delay(1000); // Simulate API call
+        Navigation.NavigateTo(""/"");
+    }
+
+    public class RegistrationModel
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 3)]
+        public string Username { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+}")
+    Language="CodeLanguage.Razor"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Blazor Services and Dependency Injection</h3>
+    <CodeBlock Code=@(@"
+// Service Interface
+public interface IWeatherService
+{
+    Task<WeatherForecast[]> GetForecastAsync();
+}
+
+// Service Implementation
+public class WeatherService : IWeatherService
+{
+    private static readonly string[] Summaries = new[]
+    {
+        ""Freezing"", ""Bracing"", ""Chilly"", ""Cool"", ""Mild"",
+        ""Warm"", ""Balmy"", ""Hot"", ""Sweltering"", ""Scorching""
+    };
+
+    public Task<WeatherForecast[]> GetForecastAsync()
+    {
+        return Task.FromResult(Enumerable.Range(1, 5).Select(index =>
+            new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            }).ToArray());
+    }
+}
+
+// Blazor Component Using the Service
+@page ""/weather""
+@inject IWeatherService WeatherService
+
+<h1>Weather forecast</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class=""table"">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await WeatherService.GetForecastAsync();
+    }
+}")
+    Language="CodeLanguage.Razor"
+    EnableLineNumbers="true" />
+</div>

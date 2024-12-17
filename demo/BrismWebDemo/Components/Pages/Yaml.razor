@@ -1,0 +1,122 @@
+@page "/yaml"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>YAML Examples - Brism Demo</PageTitle>
+
+<h1>YAML Examples</h1>
+
+<div class="mb-4">
+    <h3>GitHub Actions Workflow</h3>
+    <CodeBlock Code=@(@"
+name: .NET Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal")
+    Language="CodeLanguage.Yaml"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Kubernetes Deployment</h3>
+    <CodeBlock Code=@(@"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: myapp:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Production
+        resources:
+          limits:
+            cpu: ""500m""
+            memory: ""512Mi""
+          requests:
+            cpu: ""200m""
+            memory: ""256Mi""")
+    Language="CodeLanguage.Yaml"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Configuration File</h3>
+    <CodeBlock Code=@(@"
+# Application settings
+app:
+  name: MyWebApp
+  version: 1.0.0
+  description: A sample web application
+
+# Database configuration
+database:
+  host: localhost
+  port: 5432
+  name: myapp_db
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+
+# Logging configuration
+logging:
+  level: INFO
+  handlers:
+    - type: console
+      format: ""%(asctime)s - %(name)s - %(levelname)s - %(message)s""
+    - type: file
+      filename: app.log
+      maxBytes: 1048576
+      backupCount: 3
+
+# Feature flags
+features:
+  darkMode: true
+  betaFeatures:
+    - newUI
+    - analytics
+    - recommendations")
+    Language="CodeLanguage.Yaml"
+    EnableLineNumbers="true" />
+</div>

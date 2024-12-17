@@ -1,0 +1,113 @@
+@page "/python"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>Python Examples - Brism Demo</PageTitle>
+
+<h1>Python Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic Python Features</h3>
+    <CodeBlock Code=@(@"
+# List comprehension
+numbers = [1, 2, 3, 4, 5]
+squares = [x**2 for x in numbers if x % 2 == 0]
+
+# Dictionary comprehension
+names = ['Alice', 'Bob', 'Charlie']
+name_lengths = {name: len(name) for name in names}
+
+# Lambda functions
+multiply = lambda x, y: x * y
+print(multiply(5, 3))  # Output: 15
+
+# Generator function
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+# Using the generator
+fib = fibonacci()
+[next(fib) for _ in range(5)]  # [0, 1, 1, 2, 3]")
+    Language="CodeLanguage.Python"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Object-Oriented Programming</h3>
+    <CodeBlock Code=@(@"
+from dataclasses import dataclass
+from typing import List, Optional
+
+@dataclass
+class Address:
+    street: str
+    city: str
+    country: str
+
+class Person:
+    def __init__(self, name: str, age: int, address: Optional[Address] = None):
+        self.name = name
+        self.age = age
+        self.address = address
+
+    def __str__(self) -> str:
+        return f'{self.name}, {self.age} years old'
+
+    @property
+    def is_adult(self) -> bool:
+        return self.age >= 18
+
+    @classmethod
+    def create_anonymous(cls) -> 'Person':
+        return cls('Anonymous', 0)")
+    Language="CodeLanguage.Python"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Modern Python Features</h3>
+    <CodeBlock Code=@(@"
+from typing import TypeVar, Generic, List
+from abc import ABC, abstractmethod
+
+T = TypeVar('T')
+
+class Repository(Generic[T], ABC):
+    @abstractmethod
+    async def get(self, id: int) -> T:
+        pass
+
+    @abstractmethod
+    async def save(self, item: T) -> None:
+        pass
+
+# Pattern matching (Python 3.10+)
+def analyze_data(data):
+    match data:
+        case {'type': 'user', 'name': str() as name}:
+            return f'User: {name}'
+        case {'type': 'order', 'items': list() as items}:
+            return f'Order with {len(items)} items'
+        case _:
+            return 'Unknown data'
+
+# Async/await
+import asyncio
+
+async def fetch_data(url: str) -> dict:
+    await asyncio.sleep(1)  # Simulate API call
+    return {'data': 'example'}
+
+async def process_urls(urls: List[str]):
+    tasks = [fetch_data(url) for url in urls]
+    results = await asyncio.gather(*tasks)
+    return results")
+    Language="CodeLanguage.Python"
+    EnableLineNumbers="true" />
+</div>
