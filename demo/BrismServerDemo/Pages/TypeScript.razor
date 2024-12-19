@@ -1,0 +1,110 @@
+@page "/typescript"
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>TypeScript Examples - Brism Demo</PageTitle>
+
+<h1>TypeScript Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic Types and Interfaces</h3>
+    <CodeBlock Code=@(@"
+// Basic Types
+let isDone: boolean = false;
+let decimal: number = 6;
+let color: string = 'blue';
+let list: number[] = [1, 2, 3];
+let tuple: [string, number] = ['hello', 10];
+
+// Interface
+interface User {
+    id: number;
+    name: string;
+    email?: string;
+    readonly createdAt: Date;
+}
+
+// Class implementing interface
+class Employee implements User {
+    id: number;
+    name: string;
+    email?: string;
+    readonly createdAt: Date;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = new Date();
+    }
+}")
+    Language="CodeLanguage.TypeScript"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Generics and Utility Types</h3>
+    <CodeBlock Code=@(@"
+// Generic Function
+function getFirstElement<T>(arr: T[]): T | undefined {
+    return arr[0];
+}
+
+// Generic Interface
+interface Repository<T> {
+    getById(id: number): Promise<T>;
+    getAll(): Promise<T[]>;
+    create(item: T): Promise<T>;
+}
+
+// Utility Types
+interface Todo {
+    title: string;
+    description: string;
+    completed: boolean;
+}
+
+type TodoPreview = Pick<Todo, 'title' | 'completed'>;
+type TodoReadonly = Readonly<Todo>;
+
+// Mapped Types
+type Nullable<T> = { [P in keyof T]: T[P] | null };")
+    Language="CodeLanguage.TypeScript"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Modern TypeScript Features</h3>
+    <CodeBlock Code=@(@"
+// Optional Chaining
+interface Customer {
+    details?: {
+        address?: {
+            street?: string;
+        };
+    };
+}
+
+const customer: Customer = {};
+const street = customer.details?.address?.street;
+
+// Nullish Coalescing
+const value = null;
+const defaultValue = value ?? 'default';
+
+// Template Literal Types
+type EventName<T extends string> = `${T}Changed`;
+type MouseEvents = EventName<'mouse' | 'click'>;  // 'mouseChanged' | 'clickChanged'
+
+// Decorators
+function log(target: any, key: string) {
+    console.log(`Accessing property ${key}`);
+}
+
+class Example {
+    @log
+    public name: string = 'example';
+}")
+    Language="CodeLanguage.TypeScript"
+    EnableLineNumbers="true" />
+</div>

@@ -1,0 +1,132 @@
+@page "/css"
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>CSS Examples - Brism Demo</PageTitle>
+
+<h1>CSS Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Modern CSS Features</h3>
+    <CodeBlock Code=@(@"
+/* CSS Variables */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --text-color: #333;
+    --spacing-unit: 1rem;
+}
+
+/* Modern Box Shadow */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 
+        0 1px 1px rgba(0,0,0,0.12),
+        0 2px 2px rgba(0,0,0,0.12),
+        0 4px 4px rgba(0,0,0,0.12);
+    padding: var(--spacing-unit);
+    margin: var(--spacing-unit);
+}
+
+/* Flexbox Layout */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}")
+    Language="CodeLanguage.Css"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>CSS Animations and Transitions</h3>
+    <CodeBlock Code=@(@"
+/* Keyframe Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animated-element {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Smooth Transitions */
+.button {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}")
+    Language="CodeLanguage.Css"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Responsive Design</h3>
+    <CodeBlock Code=@(@"
+/* Mobile First Approach */
+.responsive-container {
+    padding: 1rem;
+}
+
+/* Custom Media Queries */
+@media (min-width: 768px) {
+    .responsive-container {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+/* CSS Grid for Responsive Layout */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Modern CSS Features */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #fff;
+        --background-color: #1a1a1a;
+    }
+}")
+    Language="CodeLanguage.Css"
+    EnableLineNumbers="true" />
+</div>

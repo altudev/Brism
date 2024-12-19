@@ -1,0 +1,114 @@
+@page "/bash"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>Bash Examples - Brism Demo</PageTitle>
+
+<h1>Bash Script Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic Script</h3>
+    <CodeBlock Code=@(@"
+#!/bin/bash
+
+# Simple backup script
+BACKUP_DIR=""~/backups""
+SOURCE_DIR=""~/documents""
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+# Create backup directory if it doesn't exist
+mkdir -p ""$BACKUP_DIR""
+
+# Create the backup
+tar -czf ""$BACKUP_DIR/backup_$TIMESTAMP.tar.gz"" ""$SOURCE_DIR""
+
+# Keep only the last 5 backups
+ls -t ""$BACKUP_DIR"" | tail -n +6 | xargs -I {} rm ""$BACKUP_DIR/{}""
+
+echo ""Backup completed successfully!""")
+    Language="CodeLanguage.Bash"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>System Administration</h3>
+    <CodeBlock Code=@(@"
+#!/bin/bash
+
+# System maintenance script
+
+# Check disk usage
+echo ""Checking disk usage...""
+df -h
+
+# Check memory usage
+echo -e ""\nChecking memory usage...""
+free -h
+
+# List top CPU-consuming processes
+echo -e ""\nTop CPU-consuming processes:""
+ps aux --sort=-%cpu | head -n 6
+
+# Check system load
+echo -e ""\nSystem load:""
+uptime
+
+# Check system services
+echo -e ""\nChecking critical services:""
+services=(""nginx"" ""mysql"" ""redis-server"")
+for service in ""${services[@]}""; do
+    systemctl is-active --quiet $service
+    if [ $? -eq 0 ]; then
+        echo ""$service is running""
+    else
+        echo ""$service is NOT running""
+    fi
+done")
+    Language="CodeLanguage.Bash"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Development Tools</h3>
+    <CodeBlock Code=@(@"
+#!/bin/bash
+
+# Development environment setup script
+
+# Update package list
+echo ""Updating package list...""
+sudo apt update
+
+# Install development tools
+echo ""Installing development tools...""
+TOOLS=(
+    ""git""
+    ""docker""
+    ""docker-compose""
+    ""nodejs""
+    ""npm""
+    ""dotnet-sdk-8.0""
+    ""visual-studio-code""
+)
+
+for tool in ""${TOOLS[@]}""; do
+    if ! command -v $tool &> /dev/null; then
+        echo ""Installing $tool...""
+        sudo apt install -y $tool
+    else
+        echo ""$tool is already installed""
+    fi
+done
+
+# Configure git
+echo ""Configuring git...""
+git config --global user.name ""Your Name""
+git config --global user.email ""your.email@example.com""
+
+echo ""Setup completed successfully!""")
+    Language="CodeLanguage.Bash"
+    EnableLineNumbers="true" />
+</div>

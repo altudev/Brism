@@ -1,0 +1,113 @@
+@page "/html"
+
+@rendermode InteractiveServer
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>HTML Examples - Brism Demo</PageTitle>
+
+<h1>HTML Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic HTML Structure</h3>
+    <CodeBlock Code=@(@"
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Modern HTML Example</title>
+    <link rel=""stylesheet"" href=""styles.css"">
+    <script src=""main.js"" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href=""#home"">Home</a></li>
+                <li><a href=""#about"">About</a></li>
+                <li><a href=""#contact"">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to My Website</h1>
+        <p>This is a modern HTML5 example.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>")
+    Language="CodeLanguage.Html"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Modern HTML5 Features</h3>
+    <CodeBlock Code=@(@"
+<form>
+    <!-- HTML5 Input Types -->
+    <label for=""email"">Email:</label>
+    <input type=""email"" id=""email"" required>
+
+    <label for=""date"">Date:</label>
+    <input type=""date"" id=""date"">
+
+    <label for=""color"">Color:</label>
+    <input type=""color"" id=""color"">
+
+    <label for=""range"">Range:</label>
+    <input type=""range"" id=""range"" min=""0"" max=""100"">
+
+    <!-- HTML5 Elements -->
+    <progress value=""70"" max=""100"">70%</progress>
+    <meter value=""0.6"">60%</meter>
+
+    <details>
+        <summary>Click to expand</summary>
+        <p>Hidden content here!</p>
+    </details>
+
+    <button type=""submit"">Submit</button>
+</form>")
+    Language="CodeLanguage.Html"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Semantic HTML and Accessibility</h3>
+    <CodeBlock Code=@(@"
+<article>
+    <header>
+        <h1>Blog Post Title</h1>
+        <time datetime=""2024-01-15"">January 15, 2024</time>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Main content goes here...</p>
+    </section>
+
+    <!-- Accessible Elements -->
+    <figure>
+        <img src=""image.jpg"" alt=""Descriptive text for accessibility"">
+        <figcaption>Image caption</figcaption>
+    </figure>
+
+    <aside>
+        <h3>Related Content</h3>
+        <nav aria-label=""Related posts"">
+            <ul>
+                <li><a href=""#"" aria-label=""Read more about topic 1"">Topic 1</a></li>
+                <li><a href=""#"" aria-label=""Read more about topic 2"">Topic 2</a></li>
+            </ul>
+        </nav>
+    </aside>
+</article>")
+    Language="CodeLanguage.Html"
+    EnableLineNumbers="true" />
+</div>

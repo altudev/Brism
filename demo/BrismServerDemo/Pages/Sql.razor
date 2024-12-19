@@ -1,0 +1,79 @@
+@page "/sql"
+
+@using Brism
+@using Brism = Brism.CodeBlock
+
+<PageTitle>SQL Examples - Brism Demo</PageTitle>
+
+<h1>SQL Code Examples</h1>
+
+<div class="mb-4">
+    <h3>Basic CRUD Operations</h3>
+    <CodeBlock Code=@(@"
+-- Create a new table
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    HireDate DATE,
+    Salary DECIMAL(10,2)
+);
+
+-- Insert data
+INSERT INTO Employees (FirstName, LastName, Email, HireDate, Salary)
+VALUES ('John', 'Doe', 'john.doe@example.com', '2023-01-15', 75000.00);
+
+-- Select data
+SELECT FirstName, LastName, Salary
+FROM Employees
+WHERE Salary > 50000
+ORDER BY LastName;
+
+-- Update data
+UPDATE Employees
+SET Salary = Salary * 1.1
+WHERE HireDate < '2023-01-01';
+
+-- Delete data
+DELETE FROM Employees
+WHERE EmployeeID = 1;")
+    Language="CodeLanguage.Sql"
+    EnableLineNumbers="true" />
+</div>
+
+<div class="mb-4">
+    <h3>Advanced Queries</h3>
+    <CodeBlock Code=@(@"
+-- Join example
+SELECT 
+    e.FirstName,
+    e.LastName,
+    d.DepartmentName,
+    p.ProjectName
+FROM 
+    Employees e
+    INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID
+    LEFT JOIN EmployeeProjects ep ON e.EmployeeID = ep.EmployeeID
+    LEFT JOIN Projects p ON ep.ProjectID = p.ProjectID
+WHERE 
+    d.DepartmentName = 'IT'
+ORDER BY 
+    e.LastName;
+
+-- Aggregate functions
+SELECT 
+    d.DepartmentName,
+    COUNT(e.EmployeeID) as EmployeeCount,
+    AVG(e.Salary) as AvgSalary,
+    MAX(e.Salary) as MaxSalary
+FROM 
+    Departments d
+    LEFT JOIN Employees e ON d.DepartmentID = e.DepartmentID
+GROUP BY 
+    d.DepartmentName
+HAVING 
+    COUNT(e.EmployeeID) > 5;")
+    Language="CodeLanguage.Sql"
+    EnableLineNumbers="true" />
+</div>

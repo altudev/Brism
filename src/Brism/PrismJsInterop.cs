@@ -15,16 +15,22 @@ public class PrismJsInterop : IAsyncDisposable
     public async ValueTask HighlightAsync()
     {
         var module = await moduleTask.Value;
+
         await module.InvokeVoidAsync("highlightAll");
     }
 
 
     public async ValueTask DisposeAsync()
     {
-        if (moduleTask.IsValueCreated)
+        if (moduleTask != null && moduleTask.IsValueCreated)
         {
             var module = await moduleTask.Value;
-            await module.DisposeAsync();
+
+            try
+            {
+                await module.DisposeAsync();
+            }
+            catch { }
         }
     }
 }
