@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject ThemeService ThemeService
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <PageTitle>BrismServerDemo</PageTitle>
@@ -27,15 +28,23 @@
     protected override void OnInitialized()
     {
         ThemeService.OnThemeChange += StateHasChanged;
+        ThemeService.OnThemeChange += UpdatePrismTheme;
     }
 
-    private void ToggleTheme()
+    private async void UpdatePrismTheme()
+    {
+        await JSRuntime.InvokeVoidAsync("togglePrismTheme", ThemeService.IsDarkMode);
+    }
+
+    private async Task ToggleTheme()
     {
         ThemeService.IsDarkMode = !ThemeService.IsDarkMode;
+        await JSRuntime.InvokeVoidAsync("togglePrismTheme", ThemeService.IsDarkMode);
     }
 
     public void Dispose()
     {
         ThemeService.OnThemeChange -= StateHasChanged;
+        ThemeService.OnThemeChange -= UpdatePrismTheme;
     }
 }
