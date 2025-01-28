@@ -1,15 +1,20 @@
 ﻿@inherits LayoutComponentBase
+@inject ThemeService ThemeService
+@implements IDisposable
 
 <PageTitle>BrismServerDemo</PageTitle>
 
-<div class="page">
+<div class="page @(ThemeService.IsDarkMode ? "dark-mode" : "light-mode")">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
         <div class="top-row px-4">
-            <a href="https://github.com/altudev/Brism" target="_blank">Brism</a>
+            <a href="https://github.com/altudev/Brism" target="_blank" style="padding-right: 15px">Brism</a>
+            <button class="theme-toggle-btn" @onclick="ToggleTheme">
+                @(ThemeService.IsDarkMode ? "Light Mode" : "Dark Mode")
+            </button>
         </div>
 
         <article class="content px-4">
@@ -17,3 +22,20 @@
         </article>
     </main>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ThemeService.OnThemeChange += StateHasChanged;
+    }
+
+    private void ToggleTheme()
+    {
+        ThemeService.IsDarkMode = !ThemeService.IsDarkMode;
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnThemeChange -= StateHasChanged;
+    }
+}

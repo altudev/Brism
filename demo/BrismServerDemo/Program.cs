@@ -12,6 +12,7 @@ namespace BrismServerDemo
             builder.Services.AddBrism();
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+            builder.Services.AddScoped<ThemeService>();
 
             WebApplication app = builder.Build();
 

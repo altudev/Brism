@@ -1,5 +1,12 @@
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .top-row {
@@ -9,6 +16,7 @@
 
 .navbar-brand {
     font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .oi {
@@ -32,20 +40,35 @@
     }
 
     .nav-item ::deep a {
-        color: #d7d7d7;
+        color: rgba(255, 255, 255, 0.8);
         border-radius: 4px;
         height: 3rem;
         display: flex;
         align-items: center;
         line-height: 3rem;
+        padding: 0 1rem;
     }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
+    .nav-item ::deep a.active {
+        background-color: rgba(255,255,255,0.25);
+        color: white;
+    }
+
+    .nav-item ::deep a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+.dark-mode .nav-item ::deep a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dark-mode .nav-item ::deep a.active {
+    background-color: rgba(255,255,255,0.15);
     color: white;
 }
 
-.nav-item ::deep a:hover {
+.dark-mode .nav-item ::deep a:hover {
     background-color: rgba(255,255,255,0.1);
     color: white;
 }
