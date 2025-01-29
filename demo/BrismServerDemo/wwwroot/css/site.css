@@ -1,5 +1,11 @@
+/* Base styles */
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 h1:focus {
@@ -64,3 +70,187 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/* Theme related styles */
+.light-mode {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --sidebar-bg: #f8f9fa;
+    --top-row-bg: #f7f7f7;
+    --nav-link-color: #0366d6;
+    --nav-link-hover-bg: #e9ecef;
+    --border-color: rgba(0,0,0,.1);
+    --link-color: #0071c1;
+    --btn-primary-bg: #1b6ec2;
+    --btn-primary-border: #1861ac;
+    --card-bg: #ffffff;
+    --focus-shadow: #258cfb;
+}
+
+.dark-mode {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --sidebar-bg: #2d2d2d;
+    --top-row-bg: #333333;
+    --nav-link-color: #63b3ed;
+    --nav-link-hover-bg: #404040;
+    --border-color: rgba(255,255,255,.1);
+    --link-color: #63b3ed;
+    --btn-primary-bg: #2b6cb0;
+    --btn-primary-border: #2c5282;
+    --card-bg: #2d2d2d;
+    --focus-shadow: #63b3ed;
+}
+
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.top-row {
+    background-color: var(--top-row-bg);
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+.nav-item ::deep a {
+    color: var(--text-color);
+    background-color: transparent;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item ::deep a.active {
+    background-color: var(--nav-link-hover-bg);
+    color: var(--nav-link-color);
+}
+
+.nav-item ::deep a:hover {
+    background-color: var(--nav-link-hover-bg);
+    color: var(--nav-link-color);
+}
+
+a, .btn-link {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover, .btn-link:hover {
+    color: var(--link-color);
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-border);
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem var(--background-color), 0 0 0 0.25rem var(--focus-shadow);
+}
+
+.content {
+    padding-top: 1.1rem;
+    flex: 1;
+    background-color: var(--background-color);
+}
+
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    opacity: 0.8;
+    background-color: var(--nav-link-hover-bg);
+}
+
+#blazor-error-ui {
+    background: var(--background-color);
+    color: var(--text-color);
+    box-shadow: 0 -1px 2px var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.blazor-error-boundary {
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid #dc3545;
+}
+
+.validation-message {
+    color: #dc3545;
+}
+
+/* Card styles */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* White text for code blocks in dark mode */
+.dark-mode pre, .dark-mode code {
+    color: #e9ecef;
+}
+
+/* Ensure all form controls follow theme */
+input, select, textarea {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 0.2rem rgba(var(--link-color), 0.25);
+}

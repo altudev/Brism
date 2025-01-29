@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="BrismServerDemo.styles.css" rel="stylesheet" />
-    <link href="_content/Brism/prism.css" rel="stylesheet" />
+    <link href="_content/Brism/prism.css" rel="stylesheet" id="prism-light" />
+    <link href="_content/Brism/prism-one-dark.css" rel="stylesheet" id="prism-dark" disabled />
     <link rel="icon" type="image/png" href="favicon.png"/>
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
@@ -31,7 +32,24 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-
     <script src="_content/Brism/prism.js"></script>
+    <script>
+        window.togglePrismTheme = (isDark) => {
+            const lightTheme = document.getElementById('prism-light');
+            const darkTheme = document.getElementById('prism-dark');
+            
+            if (isDark) {
+                lightTheme.disabled = true;
+                darkTheme.disabled = false;
+            } else {
+                lightTheme.disabled = false;
+                darkTheme.disabled = true;
+            }
+            
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        };
+    </script>
 </body>
 </html>
